@@ -19,8 +19,8 @@ public:
 	void setMoment(TypeMenu moment); 
 
 	//getters 
-	string getNom(); 
-	TypeMenu getMoment(); 
+	string getNom() const; 
+	TypeMenu getMoment() const; 
 
 	//Autres methodes 
 	void lireTable(string& fichier); 
@@ -30,7 +30,7 @@ public:
 	void placerClients(int nbClients); 
 
 	//affichage 
-	void afficher();
+	void afficher() const;
 
 private: 
 	string* nom_; 

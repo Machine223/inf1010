@@ -60,7 +60,6 @@ void Menu::ajouterPlat(string & nom, double montant, double cout)
 {
 	Plat plat(nom, montant, cout);
 	ajouterPlat(plat);
-
 }
 
 bool Menu::lireMenu(string & fichier)
@@ -71,11 +70,7 @@ bool Menu::lireMenu(string & fichier)
 	string mot = "";
 	double prix = 0;
 	double cout = 0;
-	char caractere;
 	TypeMenu type;
-
-
-
 	if (file)  // si l'ouverture a réussi
 	{
 		while (!ws(file).eof())
@@ -102,11 +97,8 @@ bool Menu::lireMenu(string & fichier)
 						break;
 					}
 				}
-				
-
 			}
 		}
-
 		file.close();  // on ferme le fichier
 	}
 	if (nbPlats_ = 0)

@@ -115,6 +115,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Fichiers\main.cpp" />
+    <ClCompile Include="..\..\Fichiers\Menu.cpp" />
+    <ClCompile Include="..\..\Fichiers\Plat.cpp" />
+    <ClCompile Include="..\..\Fichiers\Restaurant.cpp" />
+    <ClCompile Include="..\..\Fichiers\Table.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Fichiers\Menu.h" />
+    <ClInclude Include="..\..\Fichiers\Plat.h" />
+    <ClInclude Include="..\..\Fichiers\Restaurant.h" />
+    <ClInclude Include="..\..\Fichiers\Table.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Fichiers\polyFood.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

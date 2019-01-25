@@ -16,9 +16,9 @@ public:
 	Table(int id, int nbPlaces);
 
 	//getters 
-	int getId(); 
-	int getNbPlaces(); 
-	bool estOccupee(); 
+	int getId() const; 
+	int getNbPlaces() const; 
+	bool estOccupee() const; 
 
 	//setters 
 	void libererTable(); 
@@ -27,14 +27,14 @@ public:
 
 	//autres methodes 
 	void commander(Plat* plat); 
-	double getChiffreAffaire(); 
+	double getChiffreAffaire() const; 
 
 	//affichage
-	void afficher(); 
+	void afficher() const; 
 private : 
-	Plat** commande_; 
-	unsigned int capacite_; 
-	unsigned int nbPlats_; 
+	Plat** commande_;
+	unsigned int capacite_;
+	unsigned int nbPlats_;
 
 	int id_; 
 	unsigned int nbPlaces_; 

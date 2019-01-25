@@ -17,10 +17,11 @@ public:
 	// constructeurs
 	Menu(); 
 	Menu(string fichier, TypeMenu type); 
+	~Menu();
 
 
 	//getters
-	int getNbPlats(); 
+	int getNbPlats() const; 
 	
 	//affichage 
 	void afficher(); 
