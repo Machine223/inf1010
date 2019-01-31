@@ -4,7 +4,7 @@ Plat::Plat() :nom_("inconnu"), prix_(0), cout_(0)
 {
 }
 
-Plat::Plat(string nom, double prix, double cout) : nom_(nom), prix_(prix), cout_(cout)
+Plat::Plat(string& nom, double prix, double cout) : nom_(nom), prix_(prix), cout_(cout)
 {
 }
 
@@ -35,5 +35,5 @@ void Plat::setPrix(double prix)
 
 void Plat::afficher()
 {
-	cout << nom_ << "-" << prix_ << "$ ("  << cout_ << "$ pour le restaurant)" << endl;
+	std::cout << "	" << nom_ << "		" << prix_ <<"$	(" << cout_ << "$	pour le restaurant)" << std::endl;
 }

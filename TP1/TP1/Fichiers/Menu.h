@@ -28,7 +28,7 @@ public:
 
 	//methodes en plus
 	Plat* trouverPlat(string& nom); 
-	void ajouterPlat(Plat & plat); 
+	void ajouterPlat(Plat& plat); 
 	void ajouterPlat(string& nom, double montant, double cout); 
 	bool lireMenu(string& fichier); 
 	
@@ -39,5 +39,9 @@ private :
 	TypeMenu type_; 
 
 };
+std::ostream &operator<<(std::ostream &flux, TypeMenu const& type);
+
+
+
 
 #endif // !MENU_H

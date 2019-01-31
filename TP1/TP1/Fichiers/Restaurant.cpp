@@ -1,24 +1,18 @@
 #include "Restaurant.h"
 
-Restaurant::Restaurant(): nom_(0), momentJournee_(Matin), menuMatin_(0), menuMidi_(0), menuSoir_(0), capaciteTables_(INTTABLES), tables_(0), nbTables_(0)
+Restaurant::Restaurant():  momentJournee_(Matin), menuMatin_(0), menuMidi_(0), menuSoir_(0), capaciteTables_(INTTABLES), tables_(0), nbTables_(0)
 {
 	string nom = "inconnu";
 	nom_ = &nom;
 }
 
-Restaurant::Restaurant(string & fichier, string & nom, TypeMenu moment):nom_(0), momentJournee_(Matin), menuMatin_(0), menuMidi_(0), menuSoir_(0), capaciteTables_(INTTABLES), tables_(0), nbTables_(0)
+Restaurant::Restaurant(string & fichier, string & nom, TypeMenu moment): momentJournee_(moment), menuMatin_(0), menuMidi_(0), menuSoir_(0), capaciteTables_(INTTABLES), tables_(0), nbTables_(0)
 {
 	nom_ = &nom;
-	switch (moment)
-	{
-	case Matin: menuMatin_ = new Menu(fichier, Matin);
-		break;
-	case Midi: menuMidi_ = new Menu(fichier, Midi);
-		break;
-	case Soir: menuSoir_ = new Menu(fichier, Soir);
-		break;
-	default: break;
-	}
+	 menuMatin_ = new Menu(fichier, Matin);
+	 menuMidi_ = new Menu(fichier, Midi);
+	 menuSoir_ = new Menu(fichier, Soir);
+	
 	lireTable(fichier);
 }
 
@@ -41,13 +35,12 @@ void Restaurant::lireTable(string & fichier){
 	string ligne = "";
 	int id = 0;
 	int  nbPlaces = 0;
-	TypeMenu type;
 	if (file)  // si l'ouverture a réussi
 	{
 		while (!ws(file).eof())
 		{
 			getline(file, ligne);
-			if (ligne == "TABLES_")
+			if (ligne == "-TABLES")
 			{
 				while (!ws(file).eof())
 				{
@@ -61,7 +54,7 @@ void Restaurant::lireTable(string & fichier){
 }
 
 void Restaurant::ajouterTable(int id, int nbPlaces){
-	Table table(id, nbPlaces);
+	
 	if (nbTables_ >= capaciteTables_)
 	{
 		Table** tables = tables_;
@@ -71,7 +64,7 @@ void Restaurant::ajouterTable(int id, int nbPlaces){
 			tables_[i] = tables[i];
 		delete tables;
 	}
-	tables_[nbTables_] = &table;
+	tables_[nbTables_] = new Table(id, nbPlaces);;
 	nbTables_++;
 }
 
@@ -82,14 +75,13 @@ void Restaurant::libererTable(int id)
 		{
 			chiffreAffaire_ += tables_[i]->getChiffreAffaire();
 			tables_[i]->libererTable();
-			nbTables_--;
+			break;
 		}
-		
 }
 
 void Restaurant::commanderPlat(string & nom, int idTable)
 {
-	Plat *plat;
+	Plat *plat = nullptr;
 	switch (momentJournee_)
 	{
 	case Matin: plat = menuMatin_->trouverPlat(nom);
@@ -100,44 +92,58 @@ void Restaurant::commanderPlat(string & nom, int idTable)
 		break;
 	default: break;
 	}
-	for (int i = 0; i < nbTables_; i++)
-		if (tables_[i]->getId() == idTable )
+	if (plat != nullptr)
+		for (int i = 0; i < nbTables_; i++)
 		{
-			tables_[i]->commander(plat);
+			if (tables_[i]->getId() == idTable)
+			{
+				tables_[i]->commander(plat);
+			}
 		}
+	else
+		cout << "Erreur: table non occupee ou le plat introuvable" << std::endl;
 }
 
 void Restaurant::placerClients(int nbClients)
 {
 	Table* tableTrouve = nullptr;
+	int nbMinPlaces = 100; // contient le nombre de place minimal trouvé dans 
 	for (int i = 0; i < nbTables_; i++)
-		if (tables_[i]->estOccupee() == false && nbClients >= tables_[i]->getNbPlaces())
+		if (tables_[i]->estOccupee() == false && nbClients <= tables_[i]->getNbPlaces())
 		{
-			if (tableTrouve->getNbPlaces() < tables_[i]->getNbPlaces() || tableTrouve == nullptr)
+			if (nbMinPlaces > tables_[i]->getNbPlaces())
+			{
 				tableTrouve = tables_[i];
+				nbMinPlaces = tableTrouve->getNbPlaces();
+			}
 		}
 	if (tableTrouve == nullptr )
-		std:cout << "aucune table libéré trouvé" << endl;
+		std:cout << "Erreur: il n'ya plus/pas de table disponible pour le client" << std::endl;
+	else
+	{
+		tableTrouve->placerClient();
+	}
 }
 
 void Restaurant::afficher() const
 {
-	std::cout << "Le restaurant" << nom_;
-	if (chiffreAffaire_ != 0)
-		std::cout << "n'a pas fait de benifice ou le chiffre d'affaire n'est pas encore calcule." << endl;
+	std::cout << "Le restaurant " << *nom_ ;
+	if (chiffreAffaire_ == 0)
+		std::cout << " n'a pas fait de benifice ou le chiffre d'affaire n'est pas encore calcule. " << std::endl << std::endl;
 	else
-		std::cout << "a  fait un chiffre  d'affaire de " << chiffreAffaire_ << "$" << endl;
-	std::cout << "Voici les tables:" << endl;
+		std::cout << " a  fait un chiffre  d'affaire de : " << chiffreAffaire_ << "$" << std::endl << std::endl ;
+	std::cout << "-Voici les tables:" << std::endl;
 	for (int i = 0; i < nbTables_; i++)
 	{
-		std::cout << "		-";
+		std::cout << "	";
 		tables_[i]->afficher();
 	}
-	std::cout << "Voici son menu:" << endl;
-	std::cout << "Matin:" << endl;
+	std::cout << std::endl;
+	std::cout << "Voici son menu:" << std::endl;
 	menuMatin_->afficher();
-	std::cout << "Midi:" << endl;
+	std::cout << std::endl;
 	menuMidi_->afficher();
-	std::cout << "Soir:" << endl;
+	std::cout << std::endl;
 	menuSoir_->afficher();
+	std::cout << std::endl;
 }

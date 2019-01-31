@@ -1,12 +1,15 @@
 #include "Menu.h"
-#include "fstream"
-Menu::Menu() : capacite_(MAXPLAT), listePlats_(0), nbPlats_(0), type_(Matin)
+#include <fstream>
+#include <string>
+
+Menu::Menu() : capacite_(MAXPLAT), listePlats_(nullptr), nbPlats_(0), type_(Matin)
 {
 	listePlats_ = new Plat*[capacite_];
 }
 
-Menu::Menu(string fichier, TypeMenu type) : capacite_(MAXPLAT), listePlats_(0), nbPlats_(0), type_(type)
+Menu::Menu(string fichier, TypeMenu type) : capacite_(MAXPLAT), listePlats_(nullptr), nbPlats_(0), type_(type)
 {
+	listePlats_ = new Plat*[capacite_];
 	lireMenu(fichier);
 }
 
@@ -28,16 +31,20 @@ int Menu::getNbPlats() const
 
 void Menu::afficher()
 {
-	std::cout << type_ << " :";
+	std::cout << type_ << " :" << std::endl;
 	for (int i = 0; i < nbPlats_; i++)
 		listePlats_[i]->afficher();
 }
 
-Plat * Menu::trouverPlat(string & nom)
+Plat* Menu::trouverPlat(string & nom)
 {
-	for (int i = 0; i< nbPlats_; i++)
-		if (listePlats_[i]->getNom() == nom)
-			return listePlats_[i];
+	string nomPlat = "";
+	for (int i = 0; i < nbPlats_; i++)
+	{
+		nomPlat = listePlats_[i]->getNom(); 
+			if (nom == nomPlat)
+				return listePlats_[i];
+	}		
 	return nullptr;
 }
 
@@ -52,31 +59,30 @@ void Menu::ajouterPlat(Plat & plat)
 			listePlats_[i] = listePlats[i];
 		delete listePlats;
 	}
-	listePlats_[nbPlats_] = &plat;
-	nbPlats_++;
+	listePlats_[nbPlats_] = new Plat(plat);
 }
 
-void Menu::ajouterPlat(string & nom, double montant, double cout)
+void Menu::ajouterPlat(string& nom, double montant, double cout)
 {
-	Plat plat(nom, montant, cout);
+	Plat plat = Plat(nom, montant, cout);
 	ajouterPlat(plat);
+	nbPlats_++;
 }
 
 bool Menu::lireMenu(string & fichier)
 {
 	ifstream file(fichier, ios::in);  // on ouvre le fichier en lecture
-
-	listePlats_ = new Plat*[capacite_];
 	string mot = "";
-	double prix = 0;
-	double cout = 0;
+	double prix = 0.0;
+	double cout = 0.0;
+	bool menuLu = false;
 	TypeMenu type;
 	if (file)  // si l'ouverture a réussi
 	{
-		while (!ws(file).eof())
+		while (!menuLu)
 		{
 			getline(file, mot);
-			if (mot == "-MATIN") 
+			if (mot == "-MATIN")
 				type = Matin;
 			if (mot == "-MIDI")
 				type = Midi;
@@ -94,6 +100,7 @@ bool Menu::lireMenu(string & fichier)
 					}
 					else
 					{
+						menuLu = true;
 						break;
 					}
 				}
@@ -101,7 +108,23 @@ bool Menu::lireMenu(string & fichier)
 		}
 		file.close();  // on ferme le fichier
 	}
-	if (nbPlats_ = 0)
+	else
+	{
+		std::cout << "fichier ne s'ouvre pas" << std::endl;
+	}
+		
+	if (nbPlats_ == 0)
 		return false;
 	return true;
+}
+
+std::ostream &operator<<(std::ostream &flux, TypeMenu const& type)
+{
+	if (type == 0)
+		flux << "Matin";
+	if (type == 1)
+		flux << "Midi";
+	if (type == 2)
+		flux << "Soir";
+	return flux;
 }

@@ -57,13 +57,29 @@ void Table::commander(Plat * plat)
 double Table::getChiffreAffaire() const {
 	double chiffreAffaire = 0;
 	for (int i = 0; i < nbPlats_; i++)
-		chiffreAffaire += commande_[i]->getPrix();
+		chiffreAffaire += (commande_[i]->getPrix() - commande_[i]->getCout());
 	return chiffreAffaire;
 }
 
 void Table::afficher() const
 {
-	std::cout << "La table numero" << id_ << "est occupee. Voici la commande passee par les clients :" << endl;
-	for (int i = 0; i < nbPlats_; i++)
-		commande_[i]->afficher();
+	std::cout << "La table numero " << id_ << " est"; 
+	if (occupee_)
+	{
+		std::cout << " occupee. ";
+		if (nbPlats_ > 0)
+		{
+			std::cout << " Voici la commande passee par les clients : " << std::endl;
+		for (int i = 0; i < nbPlats_; i++)
+			commande_[i]->afficher();
+		std::cout << std::endl;
+		}
+		else
+			std::cout << " Mais ils n'ont rien commande pour l'instant." << std::endl << std::endl;
+
+	}
+	else
+		std::cout << " libre" << std::endl;
+
+
 }

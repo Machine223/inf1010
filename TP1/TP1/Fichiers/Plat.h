@@ -16,7 +16,7 @@ class Plat {
 public: 
 	// constructeurs
 	Plat(); 
-	Plat(string nom, double prix, double cout);
+	Plat(string& nom, double prix, double cout);
 
 	//getters 
 	string getNom() const; 
