@@ -1,7 +1,11 @@
 /*
-* Titre : main.cpp - Travail Pratique #1
-* Date : 09 Janvier 2019 
-* Auteur : David Dratwa
+INF1010 – PROGRAMMATION ORIENTEE OBJET
+Travail pratique No. 1
+file:    main.cpp
+Thème: Allocation dynamique, composition et agrégation
+Auteur: ABDELKADER ZOBIRI 1891451 - Abderrahim Ammour 1924705
+Date: 04 Fivrier 2019
+Ce code contient les tests de pour toutes les fonctions crées ainsi que la lecture de fichier et les gérer
 */
 
 #include "Restaurant.h"

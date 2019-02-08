@@ -1,7 +1,11 @@
 /*
-* Titre : Menu.h - Travail Pratique #1
-* Date : 09 Janvier 2019
-* Auteur : David Dratwa
+INF1010 – PROGRAMMATION ORIENTEE OBJET
+Travail pratique No. 1
+file:    Menu.h
+Thème: Allocation dynamique, composition et agrégation
+Auteur: ABDELKADER ZOBIRI 1891451 - Abderrahim Ammour 1924705
+Date: 04 Fivrier 2019
+Ce code contient les déclaration des fonctions implémenté dans Menu.cpp
 */
 
 #ifndef MENU_H
@@ -15,31 +19,30 @@ const int MAXPLAT = 5;
 class Menu {
 public: 
 	// constructeurs
-	Menu(); 
-	Menu(string fichier, TypeMenu type); 
-	~Menu();
+	Menu(); // constructeur par defaut 
+	Menu(string fichier, TypeMenu type);  // constructeur par parametre
+	~Menu(); // Destructeur
 
 
 	//getters
-	int getNbPlats() const; 
+	int getNbPlats() const;  // retourne le nombre de plats
 	
 	//affichage 
-	void afficher(); 
+	void afficher() const; // Affiche le menu
 
 	//methodes en plus
-	Plat* trouverPlat(string& nom); 
-	void ajouterPlat(Plat& plat); 
-	void ajouterPlat(string& nom, double montant, double cout); 
-	bool lireMenu(string& fichier); 
-	
+	Plat* trouverPlat(string& nom) const; // recherche un plat dans le menu
+	void ajouterPlat(Plat& plat);  // ajoute un plat dans une liste de plat
+	void ajouterPlat(string& nom, double montant, double cout);  // ajoute un plat dans une liste de plat
+	bool lireMenu(string& fichier) ; //lire un menu à partir d'un fichier
 private : 
-	unsigned int capacite_;
-	Plat** listePlats_;  
-	unsigned int nbPlats_; 
-	TypeMenu type_; 
+	unsigned int capacite_; // la capacité maximale d'un tableau de plats
+	Plat** listePlats_;   // tableau qui contient des pointeurs vers des plats
+	unsigned int nbPlats_;  // nombre de plat
+	TypeMenu type_;  // attribut qui contient le type de Menu "Matin, Midi ou Soir"
 
 };
-std::ostream &operator<<(std::ostream &flux, TypeMenu const& type);
+std::ostream &operator<<(std::ostream &flux, TypeMenu const& type) ; //affiche un string a partir d'un type enum
 
 
 

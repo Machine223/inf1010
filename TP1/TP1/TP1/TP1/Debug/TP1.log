@@ -1,2 +1,14 @@
-﻿  Plat.cpp
+﻿  Restaurant.cpp
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(85): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(96): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(120): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(138): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(148): warning C4102: 'std' : étiquette non référencée
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\restaurant.cpp(163): warning C4018: '<' : incompatibilité signed/unsigned
+  Table.cpp
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\table.cpp(45): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\table.cpp(65): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\table.cpp(75): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\t-info\desktop\inf1010\inf1010\tp1\tp1\fichiers\table.cpp(89): warning C4018: '<' : incompatibilité signed/unsigned
+  Génération de code en cours...
   TP1.vcxproj -> C:\Users\T-INFO\Desktop\INF1010\inf1010\TP1\TP1\TP1\Debug\TP1.exe
