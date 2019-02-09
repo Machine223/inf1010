@@ -21,7 +21,7 @@ Menu::Menu(string fichier, TypeMenu type) {
 Menu::Menu(const Menu & menu) : type_(menu.type_), listePlats_(menu.listePlats_)
 {
 	for (int i = 0; i < listePlats_.size(); i++)
-		listePlats_[i] = new Plat(*listePlats_[i]);
+		listePlats_[i] = new Plat(*menu.listePlats_[i]);
 }
 
 //destructeur
